@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "virtual-trainer-f",
+    "slug": "virtual-trainer-f",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "virtualtrainer",
+    "plugins": [
+      "expo-router",
+      "expo-camera"
+    ],
+    "android": {
+      "permissions": [
+        "CAMERA",
+        "INTERNET",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "CAMERA",
+        "INTERNET",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.virtualtrainer.app"
+    },
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "Used for real-time pose detection."
+      },
+      "bundleIdentifier": "com.virtualtrainer.app"
+    }
+  }
+}
