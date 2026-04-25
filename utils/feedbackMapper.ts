@@ -9,6 +9,10 @@ import { FormError, FormErrorType, FormErrorSeverity } from './exerciseDetector'
 const MESSAGES: Record<FormErrorType, string> = {
   KNEE_VALGUS: 'Keep your knees pushed outward',
   BAD_BACK:    'Keep your back straight',
+  FLARED_ELBOWS: 'Tuck your elbows closer to your body',
+  SAGGING_HIPS: 'Keep your core tight and hips aligned',
+  KNEE_OVER_TOES: 'Push hips back, keep knee behind toes',
+  SHORT_STEP: 'Take a wider stance',
 };
 
 /**

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
 import { WorkoutSession } from '../storage/workoutHistory';
-import { FormError, FormErrorType } from '../exercise/exerciseDetector';
+import { FormError, FormErrorType } from '../utils/exerciseDetector';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -28,6 +28,7 @@ const L = {
   LEFT_HIP: 23,       RIGHT_HIP: 24,
   LEFT_KNEE: 25,      RIGHT_KNEE: 26,
   LEFT_ANKLE: 27,     RIGHT_ANKLE: 28,
+  LEFT_FOOT_INDEX: 31,RIGHT_FOOT_INDEX: 32,
 } as const;
 
 // Skeleton bones for the static stick figure
@@ -51,6 +52,10 @@ const ERROR_JOINTS: Record<FormErrorType, number[]> = {
   KNEE_VALGUS: [L.LEFT_KNEE,      L.RIGHT_KNEE],
   BAD_BACK:    [L.LEFT_HIP,       L.RIGHT_HIP,
                 L.LEFT_SHOULDER,  L.RIGHT_SHOULDER],
+  FLARED_ELBOWS: [L.LEFT_ELBOW, L.RIGHT_ELBOW],
+  SAGGING_HIPS:  [L.LEFT_HIP, L.RIGHT_HIP],
+  KNEE_OVER_TOES:[L.LEFT_KNEE, L.RIGHT_KNEE, L.LEFT_FOOT_INDEX, L.RIGHT_FOOT_INDEX],
+  SHORT_STEP:    [L.LEFT_FOOT_INDEX, L.RIGHT_FOOT_INDEX],
 };
 
 // Normalized positions for a generic standing skeleton (x,y in 0–1)

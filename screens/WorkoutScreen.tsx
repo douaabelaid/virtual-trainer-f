@@ -7,8 +7,8 @@ import SkeletonOverlay            from '../pose/SkeletonOverlay';
 
 // ── Exercise logic ─────────────────────────────────────────────────────────────
 import { calculateAngle }                        from '../utils/angleUtils';
-import { createSquatDetector, SquatState }       from '../exercise/exerciseDetector';
-import { getTopMessage }                         from '../exercise/feedbackMapper';
+import { createExerciseDetector, ExerciseState }       from '../utils/exerciseDetector';
+import { getTopMessage }                         from '../utils/feedbackMapper';
 
 // ── Voice feedback ─────────────────────────────────────────────────────────────
 import { speak }                                 from '../utils/voiceFeedback';
@@ -27,16 +27,16 @@ export default function WorkoutScreen() {
   // 1. Live landmarks → drives SkeletonOverlay
   const [landmarks, setLandmarks] = useState<Landmark[]>([]);
 
-  // 2. Squat detector state snapshot
-  const [squatState, setSquatState] = useState<SquatState>({
-    reps: 0, phase: 'up', kneeAngle: 180, errors: [],
+  // 2. Exercise detector state snapshot
+  const [squatState, setSquatState] = useState<ExerciseState>({
+    reps: 0, phase: 'up', primaryAngle: 180, errors: [],
   });
 
-  // 3. Knee angle display
+  // 3. Primary angle display
   const [kneeAngle, setKneeAngle] = useState(180);
 
   // Stable detector instance (never re-created)
-  const detector = useRef(createSquatDetector()).current;
+  const detector = useRef(createExerciseDetector('squat')).current;
 
   // Debounce TTS — only speak when the coaching cue changes
   const lastCueRef = useRef('');
@@ -55,7 +55,7 @@ export default function WorkoutScreen() {
     );
     setKneeAngle(angle);
 
-    // Step 3: run squat rep + form detector
+    // Step 3: run exercise rep + form detector
     const state = detector.update({
       leftShoulder:  lms[IDX.LEFT_SHOULDER],
       leftHip:       lms[IDX.LEFT_HIP],
@@ -65,6 +65,12 @@ export default function WorkoutScreen() {
       rightHip:      lms[IDX.RIGHT_HIP],
       rightKnee:     lms[IDX.RIGHT_KNEE],
       rightAnkle:    lms[IDX.RIGHT_ANKLE],
+      leftElbow:     lms[13],
+      rightElbow:    lms[14],
+      leftWrist:     lms[15],
+      rightWrist:    lms[16],
+      leftFootIndex: lms[31],
+      rightFootIndex:lms[32],
     });
     setSquatState(state);
 

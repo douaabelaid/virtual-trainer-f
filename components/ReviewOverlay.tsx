@@ -1,7 +1,8 @@
 import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
-import { Landmark, POSE_LANDMARKS } from './PoseLandmarker';
+import { Landmark } from '../pose/PoseWebView';
+import { POSE_LANDMARKS } from '../utils/poseLandmarks';
 import { FormErrorType } from '../utils/exerciseDetector';
 
 // ── Types ─────────────────────────────────────────────────────────────────────

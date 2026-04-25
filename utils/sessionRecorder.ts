@@ -1,4 +1,4 @@
-import { Landmark } from '../components/PoseLandmarker';
+import { Landmark } from '../pose/PoseWebView';
 import { FormError, FormErrorType } from './exerciseDetector';
 
 // ── Types ─────────────────────────────────────────────────────────────────────

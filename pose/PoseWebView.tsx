@@ -162,7 +162,9 @@ export default function PoseWebView({ onLandmarks, onError }: PoseWebViewProps) 
     <View style={styles.container}>
       <WebView
         style={styles.webview}
-        source={{ html: POSE_HTML }}
+        // Force the webview to use a secure context so getUserMedia works
+        // (navigator.mediaDevices.getUserMedia requires `https://` or `localhost`)
+        source={{ html: POSE_HTML, baseUrl: 'https://localhost' }}
         // Allow JavaScript (required for MediaPipe)
         javaScriptEnabled
         originWhitelist={['*']}
@@ -171,7 +173,7 @@ export default function PoseWebView({ onLandmarks, onError }: PoseWebViewProps) 
         // Allow autoplay without a user tap
         mediaPlaybackRequiresUserAction={false}
         // Android: auto-grant the camera permission inside the WebView
-        onPermissionRequest={(req) => req.grant(req.resources)}
+        onPermissionRequest={(req: any) => req.grant(req.resources)}
         // Hardware compositing improves WebGL / canvas performance on Android
         androidLayerType="hardware"
         // Receive messages from the HTML page

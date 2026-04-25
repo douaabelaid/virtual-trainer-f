@@ -6,7 +6,7 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { createSquatDetector, SquatState } from '../exercise/exerciseDetector';
+import { createExerciseDetector, ExerciseState } from '../utils/exerciseDetector';
 
 // ── Fake landmark data ────────────────────────────────────────────────────────
 
@@ -93,7 +93,7 @@ interface LogEntry {
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export default function TestScreen() {
-  const detector = useRef(createSquatDetector()).current;
+  const detector = useRef(createExerciseDetector('squat')).current;
   const [log, setLog] = useState<LogEntry[]>([]);
   const [running, setRunning] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -125,7 +125,7 @@ export default function TestScreen() {
       const frame = SQUAT_SEQUENCE[idx];
 
       // Feed frame into the exercise detector
-      const state: SquatState = detector.update({
+      const state: ExerciseState = detector.update({
         leftShoulder:  frame.leftShoulder,
         leftHip:       frame.leftHip,
         leftKnee:      frame.leftKnee,
@@ -141,7 +141,7 @@ export default function TestScreen() {
         frame:     `#${idx + 1} — ${frame.label}`,
         phase:     state.phase.toUpperCase(),
         reps:      state.reps,
-        kneeAngle: Math.round(state.kneeAngle),
+        kneeAngle: Math.round(state.primaryAngle),
         errors:    state.errors.map((e) => `${e.type} [${e.severity}]`),
       };
 

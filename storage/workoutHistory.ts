@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FormError } from '../exercise/exerciseDetector';
+import { FormError } from '../utils/exerciseDetector';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
